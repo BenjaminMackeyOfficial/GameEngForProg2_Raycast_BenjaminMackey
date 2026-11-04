@@ -11,16 +11,16 @@ public class turret : MonoBehaviour
         LayerMask mask = LayerMask.GetMask("Target");
 
         RaycastHit hit;
-        RunAwayer targ;
+        Interactible targ;
         
         
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 50, mask) && hit.collider.gameObject.TryGetComponent<RunAwayer>(out targ))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 50, mask) && hit.collider.gameObject.TryGetComponent<Interactible>(out targ))
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
 
-            AdjustForTargetLock(targ.transform);
-            targ.Spotted();
+            AdjustForTargetLock(hit.transform);
+            targ.Interact();
         }
         else
         {
