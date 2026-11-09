@@ -2,8 +2,5 @@ using UnityEngine;
 
 public interface Iinteractible
 {
-    public virtual void Interact()
-    {
-
-    }
+    public abstract void Interact();
 }

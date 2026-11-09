@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class RunAwayer : MonoBehaviour
+public class RunAwayer : MonoBehaviour, Iinteractible
 {
     [SerializeField] Vector2 runBounds;
     [SerializeField] float speed;
@@ -11,15 +11,15 @@ public class RunAwayer : MonoBehaviour
     private bool running = false;
     private Vector3 targPos;
 
+    public void Interact()
+    {
+        if (running == true) return;
+        RunAway();
+    }
     public void Start()
     {
         targPos = transform.position;
         rend = GetComponent<Renderer>();
-    }
-    public void Spotted()
-    {
-        if (running == true) return;
-        RunAway();
     }
     void Update()
     {
