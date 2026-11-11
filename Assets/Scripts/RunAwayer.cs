@@ -10,7 +10,7 @@ public class RunAwayer : MonoBehaviour, Iinteractible
     private Renderer rend;
     private bool running = false;
     private Vector3 targPos;
-
+    public bool isTarget => true;
     public void Interact()
     {
         if (running == true) return;

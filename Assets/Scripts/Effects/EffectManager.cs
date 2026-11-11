@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    public EffectManager Instance {
+    public static EffectManager Instance {
     get{ return instance; }
     }
-    private EffectManager instance;
+    private static EffectManager instance;
 
 
     [SerializeField] GameObject textBox;
@@ -18,6 +18,10 @@ public class EffectManager : MonoBehaviour
     }
     public GameObject SpawnTextbox(string says, Vector3 position)
     {
-        return Instantiate(textBox);
+        GameObject g = Instantiate(textBox);
+        TextboxEr t = g.GetComponent<TextboxEr>();
+        t.Make(says, position);
+        return g;
+        
     }
 }

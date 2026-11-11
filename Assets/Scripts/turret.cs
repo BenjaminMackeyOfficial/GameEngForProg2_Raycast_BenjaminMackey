@@ -19,8 +19,10 @@ public class turret : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
 
-            AdjustForTargetLock(hit.transform);
+            
             targ.Interact();
+            if(targ.isTarget) AdjustForTargetLock(hit.transform);
+            else IdleSearch();
         }
         else
         {

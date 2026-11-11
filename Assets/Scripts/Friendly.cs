@@ -1,16 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
-public class Friendly : MonoBehaviour
+public class Friendly : MonoBehaviour, Iinteractible
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool isTarget => false;
+    public void Interact()
     {
-        
+        if (!speaking)
+        {
+            speaking = true;
+            StartCoroutine(CoinCollected());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    bool speaking;
+    private IEnumerator CoinCollected()
     {
-        
+        GameObject g = EffectManager.Instance.SpawnTextbox("Hello!", transform.position + Vector3.up * 2);
+        g.transform.parent = transform;
+        yield return new WaitForSecondsRealtime(6);
     }
 }
