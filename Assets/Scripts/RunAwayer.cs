@@ -2,11 +2,15 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class RunAwayer : MonoBehaviour, Iinteractible
 {
     [SerializeField] Vector2 runBounds;
     [SerializeField] float speed;
 
+    float currentSpeed = 1f;
+    int hash;
+    private Animator animator;
     private Renderer rend;
     private bool running = false;
     private Vector3 targPos;
@@ -18,22 +22,32 @@ public class RunAwayer : MonoBehaviour, Iinteractible
     }
     public void Start()
     {
+        animator = GetComponent<Animator>();
+        hash = Animator.StringToHash("Velocity");
         targPos = transform.position;
         rend = GetComponent<Renderer>();
     }
     void Update()
     {
-        if(Vector3.Distance(transform.position, targPos) < 0.1f) running = false;
+        if (Vector3.Distance(transform.position, targPos) < 0.1f)
+        {
+            currentSpeed = 0f;
+            running = false;
+        }
         else running = true;
 
         if (running) rend.material.color = Color.red * (0.5f + math.sin(Time.time * speed) / 2f);
         else rend.material.color = Color.green;
 
         transform.position = Vector3.MoveTowards(transform.position, targPos, speed * Time.deltaTime);
+
+        animator.SetFloat(hash, currentSpeed / speed);
     }
     private void RunAway()
     {
         targPos = new Vector3(UnityEngine.Random.Range(-runBounds.x, runBounds.x), transform.position.y, UnityEngine.Random.Range(-runBounds.y, runBounds.y));
+        currentSpeed = speed * UnityEngine.Random.Range(0.3f, 1.3f);
+        transform.rotation.SetLookRotation(targPos);
     }
 
    

@@ -3,11 +3,13 @@ using static UnityEngine.UI.Image;
 
 public class turret : MonoBehaviour
 {
+    [SerializeField] bool active;
     [SerializeField] float speed;
     private Quaternion targPos = Quaternion.identity;
 
     void Update()
     {
+        if (!active) return;
         LayerMask mask = LayerMask.GetMask("Target");
 
         RaycastHit hit;
